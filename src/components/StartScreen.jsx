@@ -1,56 +1,78 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Spline from "@splinetool/react-spline";
+import Squares from "../ReactBits/Squares/Squares";
 
 export default function StartScreen({ onStart }) {
-  // const [type, setType] = useState("general");
-  // const [level, setLevel] = useState("easy");
-
   const handleSubmit = () => {
     onStart("selection");
   };
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const splineUrl =
+    "https://prod.spline.design/ViuE2EdGXDSyikFr/scene.splinecode";
+
+  useEffect(() => {
+    fetch(splineUrl)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Spline file not found");
+        }
+        setIsLoaded(true);
+      })
+      .catch((err) => {
+        console.log("3D Model cannot be fetched", err);
+        setHasError(true);
+      });
+  }, []);
+
+  if (hasError || !isLoaded) return null; // Don't render anything if not loaded
 
   return (
-    <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
-      <div className="text-center space-y-6">
-        <h1 className="text-4xl font-bold">🚀 Welcome to the Quiz Game!</h1>
-        <p className="text-lg">Choose your topic and level to begin!</p>
-
-        {/* <div className="space-y-4">
-          <div>
-            <label className="block mb-1 font-semibold">Choose Topic:</label>
-            <select
-              className="text-black p-2 rounded"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-            >
-              <option value="general">General Knowledge</option>
-              <option value="coding">Coding</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">
-              Choose Difficulty:
-            </label>
-            <select
-              className="text-black p-2 rounded"
-              value={level}
-              onChange={(e) => setLevel(e.target.value)}
-            >
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
-            </select>
-          </div>
-        </div> */}
-
-        <button
-          onClick={handleSubmit}
-          className="bg-white text-indigo-600 font-bold py-2 px-6 rounded-full shadow-lg hover:scale-105 transition transform"
-        >
-          Start Quiz
-        </button>
+    <>
+      <div className="absolute inset-0 z-0 h-screen w-full overflow-hidden bg-black">
+        <Squares
+          speed={0.5}
+          squareSize={40}
+          direction="up" // up, down, left, right, diagonal
+          borderColor="#05df72"
+          hoverFillColor="#fff"
+          // className="absolute inset-0 z-0 h-screen w-full"
+        />
       </div>
-    </motion.div>
+
+      <div className="h-screen w-full flex absolute items-center justify-center bg-transparent text-white px-6">
+        {/* Overlay Background */}
+        {/* <div className="absolute inset-0 bg-black opacity-40 z-10"></div> */}
+
+        {/* Content Container */}
+        <div className="relative z-20 flex flex-col md:flex-row items-center justify-between max-w-6xl w-full">
+          {/* Left Side Text */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="w-full md:w-1/2 text-center md:text-left space-y-6"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold">
+              🚀 Welcome to the Quiz Game!
+            </h1>
+            <p className="text-lg md:text-xl">
+              Test your knowledge and learn something new every round.
+            </p>
+            <button
+              onClick={handleSubmit}
+              className="bg-white text-indigo-600 font-bold py-2 px-6 rounded-full shadow-lg hover:scale-105 transition transform"
+            >
+              Start Quiz
+            </button>
+          </motion.div>
+
+          {/* Right Side 3D Lightbulb */}
+          <div className="w-full md:w-1/2 h-[400px] md:h-[700px] flex justify-center bg-transparent items-center">
+            <Spline className="bg-transparent" scene={splineUrl} />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

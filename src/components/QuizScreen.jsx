@@ -6,6 +6,7 @@ export default function QuizScreen({
   questionIndex,
   total,
   onNext,
+  onPrevious,
 }) {
   const [selected, setSelected] = useState(null);
   const [timer, setTimer] = useState(15);
@@ -28,12 +29,17 @@ export default function QuizScreen({
   }, [questionIndex]);
 
   const handleSelect = (option) => {
-    if (!selected) setSelected(option);
+    setSelected(option);
   };
 
   const handleNext = () => {
     onNext(selected === questionData.answer);
     setSelected(null);
+  };
+  const handlePrevious = () => {
+    // alert("This is the first question!");
+    const goBack = 1;
+    onPrevious(true);
   };
 
   return (
@@ -58,27 +64,45 @@ export default function QuizScreen({
             <button
               key={idx}
               onClick={() => handleSelect(option)}
-              className={`px-4 py-2 rounded-xl border text-left transition-all duration-200 ${
-                selected === option
-                  ? option === questionData.answer
+              className={`px-4 py-2 rounded-xl border text-left transition-all duration-200
+                ${
+                  selected === option
                     ? "bg-green-200 border-green-500"
-                    : "bg-red-200 border-red-500"
-                  : "bg-gray-100 hover:bg-gray-200 border-gray-300"
-              }`}
-              disabled={!!selected}
+                    : "bg-gray-100 hover:bg-gray-200 border-gray-300"
+                }
+              `}
+              // disabled={!!selected}
             >
               {option}
             </button>
           ))}
         </div>
-        {selected && (
+
+        <div className="flex justify-between mt-6">
+          {/* <button
+            onClick={handlePrevious}
+            className="mt-6 bg-gray-300 text-gray-700 px-6 py-2 rounded-full hover:scale-105 transition transform"
+          >
+            Previous
+          </button> */}
+          <button
+            onClick={handlePrevious}
+            disabled={questionIndex === 0}
+            className={`mt-6 px-6 py-2 rounded-full transition transform ${
+              questionIndex === 0
+                ? "bg-gray-400 text-gray-500 cursor-not-allowed"
+                : "bg-gray-300 text-gray-700 hover:scale-105"
+            }`}
+          >
+            Previous
+          </button>
           <button
             onClick={handleNext}
             className="mt-6 bg-indigo-600 text-white px-6 py-2 rounded-full hover:scale-105 transition transform"
           >
             Next
           </button>
-        )}
+        </div>
       </div>
     </motion.div>
   );
