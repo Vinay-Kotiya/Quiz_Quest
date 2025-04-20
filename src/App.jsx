@@ -4,21 +4,26 @@ import SelectionScreen from "./components/SelectionScreen";
 import QuizScreen from "./components/QuizScreen";
 import ScoreScreen from "./components/ScoreScreen";
 import { quizData } from "./data/quizData";
+import Squares from "./ReactBits/Squares/Squares";
+// import TextCursor from "./ReactBits/TextCursor/TextCursor";
 
 export default function App() {
   const [step, setStep] = useState("start");
   const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
+  const [subCategory, setSubCategory] = useState("");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedQuiz, setSelectedQuiz] = useState([]);
 
   const handleStart = () => setStep("selection");
 
-  const handleSelection = (cat, diff) => {
+  const handleSelection = (cat, subC, diff) => {
     setCategory(cat);
     setDifficulty(diff);
-    const selected = quizData[cat][diff];
+    setSubCategory(subC);
+
+    const selected = quizData[cat][subC][diff];
     setSelectedQuiz(selected);
     setStep("quiz");
   };
@@ -57,33 +62,45 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center ">
-      {step === "start" && <StartScreen onStart={handleStart} />}
-      {step === "selection" && <SelectionScreen onSelect={handleSelection} />}
-      {step === "quiz" && (
-        // <QuizScreen
-        //   questionData={selectedQuiz[currentQuestion]}
-        //   questionIndex={currentQuestion}
-        //   total={selectedQuiz.length}
-        //   onNext={handleNext}
-        //   onPrevious={handlePrevious}
-        // />
-        <QuizScreen
-          questionData={selectedQuiz[currentQuestion]}
-          questionIndex={currentQuestion}
-          total={selectedQuiz.length}
-          onNext={handleNext}
-          onPrevious={handlePrevious} // ✅ correctly passed
+    <>
+      <div className="absolute inset-0 z-0 h-screen w-full overflow-hidden bg-black">
+        <Squares
+          speed={0.5}
+          squareSize={40}
+          direction="up" // up, down, left, right, diagonal
+          borderColor="#05df72"
+          hoverFillColor="#fff"
+          // className="absolute inset-0 z-0 h-screen w-full"
         />
-      )}
-      {step === "score" && (
-        <ScoreScreen
-          score={score}
-          total={selectedQuiz.length}
-          onRestart={handleRestart}
-        />
-      )}
-    </div>
+      </div>
+      <div className="min-h-screen z-50  text-white flex items-center justify-center ">
+        {step === "start" && <StartScreen onStart={handleStart} />}
+        {step === "selection" && <SelectionScreen onSelect={handleSelection} />}
+        {step === "quiz" && (
+          // <QuizScreen
+          //   questionData={selectedQuiz[currentQuestion]}
+          //   questionIndex={currentQuestion}
+          //   total={selectedQuiz.length}
+          //   onNext={handleNext}
+          //   onPrevious={handlePrevious}
+          // />
+          <QuizScreen
+            questionData={selectedQuiz[currentQuestion]}
+            questionIndex={currentQuestion}
+            total={selectedQuiz.length}
+            onNext={handleNext}
+            onPrevious={handlePrevious} // ✅ correctly passed
+          />
+        )}
+        {step === "score" && (
+          <ScoreScreen
+            score={score}
+            total={selectedQuiz.length}
+            onRestart={handleRestart}
+          />
+        )}
+      </div>
+    </>
   );
 }
 // import React from "react";

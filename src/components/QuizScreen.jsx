@@ -9,10 +9,10 @@ export default function QuizScreen({
   onPrevious,
 }) {
   const [selected, setSelected] = useState(null);
-  const [timer, setTimer] = useState(15);
+  const [timer, setTimer] = useState(20); // Set initial timer value
 
   useEffect(() => {
-    setTimer(15);
+    setTimer(20);
     const countdown = setInterval(() => {
       setTimer((prev) => {
         if (prev <= 1) {
@@ -41,6 +41,11 @@ export default function QuizScreen({
     const goBack = 1;
     onPrevious(true);
   };
+  // const handleRestart = () => {
+  //   setSelected(null);
+  //   setTimer(15);
+  //   onNext(false); // Reset the quiz or navigate to the start screen
+  // };
 
   return (
     <motion.div
@@ -48,6 +53,7 @@ export default function QuizScreen({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      className="z-50"
     >
       <div className="bg-white text-gray-800 p-6 rounded-2xl shadow-xl w-full max-w-xl">
         <div className="flex justify-between items-center mb-4">
@@ -104,6 +110,7 @@ export default function QuizScreen({
           </button>
         </div>
       </div>
+      {/* <button onClick={handleRestart}>Restart</button> */}
     </motion.div>
   );
 }

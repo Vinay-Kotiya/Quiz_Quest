@@ -15,6 +15,7 @@ export default function ScoreScreen({ score, total, onRestart }) {
     <motion.div
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
+      className="z-50"
     >
       <div className="text-center space-y-6 bg-white text-gray-800 p-8 rounded-2xl shadow-lg">
         <h1 className="text-3xl font-bold">🎉 Quiz Completed!</h1>
