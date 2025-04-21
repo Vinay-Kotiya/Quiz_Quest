@@ -53,19 +53,24 @@ export default function App() {
   };
 
   const handleRestart = () => {
-    setStep("start");
+    setStep("selection");
     setScore(0);
     setCurrentQuestion(0);
     setCategory("");
     setDifficulty("");
     setSelectedQuiz([]);
   };
-
+  const handleClose = () => {
+    setStep("start");
+    setCategory("");
+    setDifficulty("");
+    setSelectedQuiz([]);
+  };
   return (
     <>
       <div className="absolute inset-0 z-0 h-screen w-full overflow-hidden bg-black">
         <Squares
-          speed={0.5}
+          speed={0.1}
           squareSize={40}
           direction="up" // up, down, left, right, diagonal
           borderColor="#05df72"
@@ -75,7 +80,9 @@ export default function App() {
       </div>
       <div className="min-h-screen z-50  text-white flex items-center justify-center ">
         {step === "start" && <StartScreen onStart={handleStart} />}
-        {step === "selection" && <SelectionScreen onSelect={handleSelection} />}
+        {step === "selection" && (
+          <SelectionScreen onSelect={handleSelection} onClose={handleClose} />
+        )}
         {step === "quiz" && (
           // <QuizScreen
           //   questionData={selectedQuiz[currentQuestion]}
@@ -97,6 +104,7 @@ export default function App() {
             score={score}
             total={selectedQuiz.length}
             onRestart={handleRestart}
+            subCategory={subCategory}
           />
         )}
       </div>

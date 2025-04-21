@@ -9,10 +9,10 @@ export default function QuizScreen({
   onPrevious,
 }) {
   const [selected, setSelected] = useState(null);
-  const [timer, setTimer] = useState(20); // Set initial timer value
+  const [timer, setTimer] = useState(60); // Set initial timer value
 
   useEffect(() => {
-    setTimer(20);
+    setTimer(60);
     const countdown = setInterval(() => {
       setTimer((prev) => {
         if (prev <= 1) {
@@ -57,15 +57,17 @@ export default function QuizScreen({
     >
       <div className="bg-white text-gray-800 p-6 rounded-2xl shadow-xl w-full max-w-xl">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">
+          <h2 className="text-xl md:text-2xl font-bold  ">
             Question {questionIndex + 1} of {total}
           </h2>
           <div className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-bold">
             ⏱ {timer}s
           </div>
         </div>
-        <p className="text-lg font-medium mb-6">{questionData.question}</p>
-        <div className="grid gap-4">
+        <p className="text-xl md:text-3xl font-medium mb-6">
+          {questionData.question}
+        </p>
+        <div className="grid md:text-2xl gap-4">
           {questionData.options.map((option, idx) => (
             <button
               key={idx}
@@ -84,7 +86,7 @@ export default function QuizScreen({
           ))}
         </div>
 
-        <div className="flex justify-between mt-6">
+        <div className="flex md:text-2xl justify-between mt-6">
           {/* <button
             onClick={handlePrevious}
             className="mt-6 bg-gray-300 text-gray-700 px-6 py-2 rounded-full hover:scale-105 transition transform"
@@ -104,7 +106,7 @@ export default function QuizScreen({
           </button>
           <button
             onClick={handleNext}
-            className="mt-6 bg-indigo-600 text-white px-6 py-2 rounded-full hover:scale-105 transition transform"
+            className="mt-6 bg-[#1DCD9F] text-white px-6 py-2 rounded-full hover:scale-105 transition transform"
           >
             Next
           </button>

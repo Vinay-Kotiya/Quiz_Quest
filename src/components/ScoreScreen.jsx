@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import confetti from "canvas-confetti";
 
-export default function ScoreScreen({ score, total, onRestart }) {
+export default function ScoreScreen({ score, total, onRestart, subCategory }) {
   useEffect(() => {
     confetti({
       particleCount: 150,
@@ -18,13 +18,27 @@ export default function ScoreScreen({ score, total, onRestart }) {
       className="z-50"
     >
       <div className="text-center space-y-6 bg-white text-gray-800 p-8 rounded-2xl shadow-lg">
-        <h1 className="text-3xl font-bold">🎉 Quiz Completed!</h1>
+        <h1 className="text-3xl font-bold">
+          🎉{subCategory.charAt(0).toUpperCase() + subCategory.slice(1)} Quiz
+          Completed!
+        </h1>
         <p className="text-xl">
           You scored{" "}
           <span className="text-green-600 font-bold">
             {score}/{total}
           </span>
         </p>
+        <p className="text-green-600 font-bold">{(score / total) * 100}%</p>
+        <p className="text-lg text-gray-600 text-center mt-4">
+          {score / total >= 0.8
+            ? "Outstanding! You're a quiz master! 🧠🔥"
+            : score / total >= 0.5
+            ? "Great job! You're doing well! 🎉"
+            : score / total >= 0.3
+            ? "Not bad, but you can do better! 💪"
+            : "Keep practicing! You'll get there! 🌱"}
+        </p>
+
         <button
           onClick={onRestart}
           className="mt-4 bg-indigo-600 text-white px-6 py-2 rounded-full hover:scale-105 transition transform"
