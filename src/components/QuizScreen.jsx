@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
+const renderTime = ({ remainingTime }) => {
+  if (remainingTime === 0) {
+    return <div className="timer">Too lale...</div>;
+  }
+
+  return (
+    <div className="timer">
+      <div className="text">Remaining</div>
+      <div className="value">{remainingTime}</div>
+      <div className="text">seconds</div>
+    </div>
+  );
+};
 export default function QuizScreen({
   questionData,
   questionIndex,
@@ -33,8 +47,12 @@ export default function QuizScreen({
   };
 
   const handleNext = () => {
-    onNext(selected === questionData.answer);
-    setSelected(null);
+    if (selected === null) {
+      alert("Please select an answer before proceeding.");
+    } else {
+      onNext(selected === questionData.answer, selected); // Pass the selected answer to the parent component
+      setSelected(null);
+    }
   };
   const handlePrevious = () => {
     // alert("This is the first question!");
@@ -61,7 +79,16 @@ export default function QuizScreen({
             Question {questionIndex + 1} of {total}
           </h2>
           <div className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-bold">
-            ⏱ {timer}s
+            {/* ⏱ {timer}s */}
+            {/* <CountdownCircleTimer
+              isPlaying
+              duration={10}
+              colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+              colorsTime={[10, 6, 3, 0]}
+              onComplete={() => ({ shouldRepeat: true, delay: 1 })}
+            >
+              {renderTime}
+            </CountdownCircleTimer> */}
           </div>
         </div>
         <p className="text-xl md:text-3xl font-medium mb-6">
@@ -76,7 +103,7 @@ export default function QuizScreen({
                 ${
                   selected === option
                     ? "bg-green-200 border-green-500"
-                    : "bg-gray-100 hover:bg-gray-200 border-gray-300"
+                    : "bg-gray-200 hover:bg-gray-300 border-gray-400"
                 }
               `}
               // disabled={!!selected}

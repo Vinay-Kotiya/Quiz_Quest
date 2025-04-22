@@ -5,7 +5,33 @@ import QuizScreen from "./components/QuizScreen";
 import ScoreScreen from "./components/ScoreScreen";
 import { quizData } from "./data/quizData";
 import Squares from "./ReactBits/Squares/Squares";
+import close from "./assets/close.svg";
 // import TextCursor from "./ReactBits/TextCursor/TextCursor";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
+const minuteSeconds = 60;
+const hourSeconds = 3600;
+const daySeconds = 86400;
+
+const timerProps = {
+  isPlaying: true,
+  size: 120,
+  strokeWidth: 6,
+};
+
+const renderTime = (dimension, time) => {
+  return (
+    <div className="flex justify-center items-center flex-col">
+      <div className="text-2xl md:text-3xl">{time}</div>
+      <div className="text-sm font-bold">{dimension}</div>
+    </div>
+  );
+};
+
+const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
+const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
+// const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
+// const getTimeDays = (time) => (time / daySeconds) | 0;
 
 export default function App() {
   const [step, setStep] = useState("start");
@@ -15,7 +41,7 @@ export default function App() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedQuiz, setSelectedQuiz] = useState([]);
-
+  const [myAnswer, setMyAnswer] = useState([]);
   const handleStart = () => setStep("selection");
 
   const handleSelection = (cat, subC, diff) => {
@@ -28,7 +54,9 @@ export default function App() {
     setStep("quiz");
   };
 
-  const handleNext = (isCorrect) => {
+  const handleNext = (isCorrect, selected) => {
+    setMyAnswer((prev) => [...prev, selected]);
+    // console.log("Selected answer:", currentQuestion, selected);
     if (isCorrect) setScore(score + 1);
     if (currentQuestion + 1 < selectedQuiz.length) {
       setCurrentQuestion(currentQuestion + 1);
@@ -66,9 +94,28 @@ export default function App() {
     setDifficulty("");
     setSelectedQuiz([]);
   };
+
+  const stratTime = Date.now() / 1000; // use UNIX timestamp in seconds
+  const endTime = stratTime + 600; //243248; // use UNIX timestamp in seconds
+
+  const remainingTime = endTime - stratTime;
+  const days = Math.ceil(remainingTime / daySeconds);
+  const daysDuration = days * daySeconds;
+
   return (
     <>
-      <div className="absolute inset-0 z-0 h-screen w-full overflow-hidden bg-black">
+      {/* <div className="absolute inset-0 z-0  w-full overflow-hidden bg-black"> */}
+      {/* <Squares
+        speed={0.1}
+        squareSize={40}
+        direction="up" // up, down, left, right, diagonal
+        borderColor="#05df72"
+        hoverFillColor="#fff"
+        // className="absolute inset-0 z-0 h-screen w-full"
+      /> */}
+      {/* </div> */}
+
+      <div className="min-h-screen z-50 relative text-white flex items-center justify-center ">
         <Squares
           speed={0.1}
           squareSize={40}
@@ -77,27 +124,105 @@ export default function App() {
           hoverFillColor="#fff"
           // className="absolute inset-0 z-0 h-screen w-full"
         />
-      </div>
-      <div className="min-h-screen z-50  text-white flex items-center justify-center ">
         {step === "start" && <StartScreen onStart={handleStart} />}
         {step === "selection" && (
           <SelectionScreen onSelect={handleSelection} onClose={handleClose} />
         )}
         {step === "quiz" && (
+          <div className="relative w-full max-w-xl p-6 bg-white text-gray-800 rounded-2xl shadow-xl">
+            <img
+              className="h-10 absolute top-4 right-4 cursor-pointer"
+              src={close}
+              onClick={() => setStep("selection")}
+            />
+            {/* 
           // <QuizScreen
           //   questionData={selectedQuiz[currentQuestion]}
           //   questionIndex={currentQuestion}
           //   total={selectedQuiz.length}
           //   onNext={handleNext}
           //   onPrevious={handlePrevious}
-          // />
-          <QuizScreen
-            questionData={selectedQuiz[currentQuestion]}
-            questionIndex={currentQuestion}
-            total={selectedQuiz.length}
-            onNext={handleNext}
-            onPrevious={handlePrevious} // ✅ correctly passed
-          />
+          // */}
+            <span className=" top-0 right-0 m-4 flex items-center justify-center ">
+              {/* <CountdownCircleTimer
+                {...timerProps}
+                colors="#7E2E84"
+                duration={daysDuration}
+                initialRemainingTime={remainingTime}
+              >
+                {({ elapsedTime, color }) => (
+                  <span style={{ color }}>
+                    {renderTime(
+                      "days",
+                      getTimeDays(daysDuration - elapsedTime)
+                    )}
+                  </span>
+                )}
+              </CountdownCircleTimer> */}
+              {/* <CountdownCircleTimer
+                {...timerProps}
+                colors="#D14081"
+                duration={daySeconds}
+                initialRemainingTime={remainingTime % daySeconds}
+                onComplete={(totalElapsedTime) => ({
+                  shouldRepeat: remainingTime - totalElapsedTime > hourSeconds,
+                })}
+              >
+                {({ elapsedTime, color }) => (
+                  <span style={{ color }}>
+                    {renderTime(
+                      "hours",
+                      getTimeHours(daySeconds - elapsedTime)
+                    )}
+                  </span>
+                )}
+              </CountdownCircleTimer> */}
+              <CountdownCircleTimer
+                {...timerProps}
+                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                colorsTime={[8, 6, 4, 0]}
+                duration={hourSeconds}
+                initialRemainingTime={remainingTime % hourSeconds}
+                onComplete={(totalElapsedTime) => ({
+                  shouldRepeat:
+                    remainingTime - totalElapsedTime > minuteSeconds,
+                })}
+              >
+                {({ elapsedTime, color }) => (
+                  <span style={{ color }}>
+                    {renderTime(
+                      "minutes",
+                      getTimeMinutes(hourSeconds - elapsedTime)
+                    )}
+                  </span>
+                )}
+              </CountdownCircleTimer>
+              <CountdownCircleTimer
+                {...timerProps}
+                duration={minuteSeconds}
+                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                colorsTime={[45, 30, 15, 0]}
+                initialRemainingTime={remainingTime % minuteSeconds}
+                onComplete={(totalElapsedTime) => ({
+                  shouldRepeat: remainingTime - totalElapsedTime > 0,
+                })}
+              >
+                {({ elapsedTime, color }) => (
+                  <span style={{ color }}>
+                    {renderTime("seconds", getTimeSeconds(elapsedTime))}
+                  </span>
+                )}
+              </CountdownCircleTimer>
+            </span>
+
+            <QuizScreen
+              questionData={selectedQuiz[currentQuestion]}
+              questionIndex={currentQuestion}
+              total={selectedQuiz.length}
+              onNext={handleNext}
+              onPrevious={handlePrevious} // ✅ correctly passed
+            />
+          </div>
         )}
         {step === "score" && (
           <ScoreScreen
@@ -105,6 +230,11 @@ export default function App() {
             total={selectedQuiz.length}
             onRestart={handleRestart}
             subCategory={subCategory}
+            selectedQuiz={selectedQuiz}
+            category={category}
+            difficulty={difficulty}
+            myAnswer={myAnswer}
+            onClose={handleClose}
           />
         )}
       </div>

@@ -16,6 +16,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "react": "^19.0.0",
+    "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "^19.0.0",
     "tailwindcss": "^4.1.4"
   },
