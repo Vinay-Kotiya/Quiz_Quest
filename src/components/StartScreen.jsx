@@ -84,7 +84,7 @@ export default function StartScreen({ onStart }) {
           </motion.div>
 
           {/* Right Side 3D Lightbulb */}
-          <div className="w-full md:w-1/2  md:h-[800px] h-[400px] hidden md:flex justify-center bg-transparent items-center">
+          <div className="w-full md:w-1/2  md:h-[700px] h-[400px] hidden md:flex justify-center bg-transparent items-center">
             <Spline className="bg-transparent" scene={splineUrl} />
           </div>
         </div>
