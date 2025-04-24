@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
-const renderTime = ({ remainingTime }) => {
-  if (remainingTime === 0) {
-    return <div className="timer">Too lale...</div>;
-  }
+// const renderTime = ({ remainingTime }) => {
+//   if (remainingTime === 0) {
+//     return <div className="timer">Too lale...</div>;
+//   }
 
-  return (
-    <div className="timer">
-      <div className="text">Remaining</div>
-      <div className="value">{remainingTime}</div>
-      <div className="text">seconds</div>
-    </div>
-  );
-};
+//   return (
+//     <div className="timer">
+//       <div className="text">Remaining</div>
+//       <div className="value">{remainingTime}</div>
+//       <div className="text">seconds</div>
+//     </div>
+//   );
+// };
 export default function QuizScreen({
   questionData,
   questionIndex,
@@ -25,22 +25,22 @@ export default function QuizScreen({
   const [selected, setSelected] = useState(null);
   const [timer, setTimer] = useState(60); // Set initial timer value
 
-  useEffect(() => {
-    setTimer(60);
-    const countdown = setInterval(() => {
-      setTimer((prev) => {
-        if (prev <= 1) {
-          clearInterval(countdown);
-          if (!selected) {
-            setSelected(""); // Mark as unanswered
-            setTimeout(() => onNext(false), 1000);
-          }
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(countdown);
-  }, [questionIndex]);
+  // useEffect(() => {
+  //   setTimer(60);
+  //   const countdown = setInterval(() => {
+  //     setTimer((prev) => {
+  //       if (prev <= 1) {
+  //         clearInterval(countdown);
+  //         if (!selected) {
+  //           setSelected(""); // Mark as unanswered
+  //           setTimeout(() => onNext(false), 1000);
+  //         }
+  //       }
+  //       return prev - 1;
+  //     });
+  //   }, 1000);
+  //   return () => clearInterval(countdown);
+  // }, [questionIndex]);
 
   const handleSelect = (option) => {
     setSelected(option);
@@ -78,9 +78,9 @@ export default function QuizScreen({
           <h2 className="text-xl md:text-2xl font-bold  ">
             Question {questionIndex + 1} of {total}
           </h2>
-          <div className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-bold">
-            {/* ⏱ {timer}s */}
-            {/* <CountdownCircleTimer
+          {/* <div className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-bold"> */}
+          {/* ⏱ {timer}s */}
+          {/* <CountdownCircleTimer
               isPlaying
               duration={10}
               colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
@@ -89,7 +89,7 @@ export default function QuizScreen({
             >
               {renderTime}
             </CountdownCircleTimer> */}
-          </div>
+          {/* </div> */}
         </div>
         <p className="text-xl md:text-3xl font-medium mb-6">
           {questionData.question}
@@ -120,7 +120,7 @@ export default function QuizScreen({
           >
             Previous
           </button> */}
-          <button
+          {/* <button
             onClick={handlePrevious}
             disabled={questionIndex === 0}
             className={`mt-6 px-6 py-2 rounded-full transition transform ${
@@ -130,12 +130,41 @@ export default function QuizScreen({
             }`}
           >
             Previous
+          </button> */}
+          <button
+            onClick={handlePrevious}
+            disabled={questionIndex === 0}
+            className={`group/button relative inline-flex items-center justify-center overflow-hidden rounded-3xl  backdrop-blur-lg px-6 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-700 border border-black ${
+              questionIndex === 0
+                ? "bg-gray-400 text-gray-500 cursor-not-allowed"
+                : "bg-red-300 text-gray-700 hover:scale-105"
+            } `}
+          >
+            <span class="text-xl">Previous</span>
+            <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+              <div class="relative h-full w-10 bg-white/20"></div>
+            </div>
+          </button>
+          {/* <button
+            onClick={() => setStep("scoreScreen")}
+            className="m-4 bg-[#1DCD9F] border-1 border-black text-black md:text-xl px-6 py-2 rounded-full hover:scale-105 transition transform"
+          >
+            Close
           </button>
           <button
             onClick={handleNext}
             className="mt-6 bg-[#1DCD9F] text-white px-6 py-2 rounded-full hover:scale-105 transition transform"
           >
             Next
+          </button> */}
+          <button
+            onClick={handleNext}
+            class="group/button relative inline-flex items-center justify-center overflow-hidden rounded-3xl bg-[#1DCD9F] backdrop-blur-lg px-6 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-700 border border-black"
+          >
+            <span class="text-xl">Next</span>
+            <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+              <div class="relative h-full w-10 bg-white/20"></div>
+            </div>
           </button>
         </div>
       </div>
