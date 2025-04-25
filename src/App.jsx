@@ -85,6 +85,8 @@ export default function App() {
 
   const handleRestart = () => {
     setStep("selection");
+    setMyAnswer([]);
+
     setScore(0);
     setCurrentQuestion(0);
     setCategory("");

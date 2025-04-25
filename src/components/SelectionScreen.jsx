@@ -72,7 +72,7 @@ const SelectionScreen = ({ onSelect, onClose }) => {
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="bg-white text-black  p-8  rounded-2xl z-40 shadow-xl h-full w-full max-w-3xl mx-auto"
+        className="bg-white text-black  p-3 md:p-8  rounded-2xl z-40 shadow-xl h-full w-full max-w-3xl mx-auto"
       >
         <div className="flex justify-around mb-8 items-center">
           <Magnet padding={50} disabled={false} magnetStrength={50}>
@@ -267,7 +267,7 @@ const SelectionScreen = ({ onSelect, onClose }) => {
                 <div
                   key={item}
                   onClick={() => setSubCategory(item)}
-                  class={`weather-widget group relative max-w-sm w-full mx-auto  rounded-2xl p-6 shadow-xl shadow-teal-600/40 border border-teal-800/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-teal-600/60 hover:scale-105 ${
+                  class={`weather-widget group relative max-w-sm w-full mx-auto  rounded-2xl md:p-6 p-2 shadow-xl shadow-teal-600/40 border border-teal-800/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-teal-600/60 hover:scale-105 ${
                     subCategory === item
                       ? "scale-105 shadow-teal-600/60 shadow-2xl   bg-gradient-to-br from-green-700 via-green-500 to-green-800"
                       : " shadow-teal-600/40 bg-gradient-to-br from-gray-900 via-teal-950 to-black "
