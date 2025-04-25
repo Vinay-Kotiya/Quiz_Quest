@@ -190,7 +190,7 @@ const SelectionScreen = ({ onSelect, onClose }) => {
                     class={`weather-widget group relative max-w-sm w-full mx-auto rounded-2xl p-2 shadow-xl shadow-teal-600/40 border border-teal-800/50 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-teal-600/60 hover:scale-105   ${
                       difficulty === level
                         ? "scale-105 shadow-teal-600/60 shadow-2xl   bg-gradient-to-br from-green-700 via-green-500 to-green-800"
-                        : " shadow-teal-600/40  bg-gradient-to-br from-gray-900 via-green-800 to-black"
+                        : " shadow-teal-600/40   bg-gradient-to-br from-gray-900 via-teal-950 to-black "
                     }`}
                   >
                     <div class="absolute inset-0 opacity-20 pointer-events-none">
@@ -229,7 +229,7 @@ const SelectionScreen = ({ onSelect, onClose }) => {
                     </div>
 
                     <div class="text-right">
-                      <p class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 transition-all duration-500 group-hover:bg-gradient-to-r group-hover:from-yellow-500 group-hover:to-orange-600 group-hover:text-5xl group-hover:drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]">
+                      <p class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 transition-all duration-500 group-hover:bg-gradient-to-r group-hover:from-yellow-500 group-hover:to-orange-600 group-hover:text-5xl drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]">
                         <img className="h-20" src={emoji} />
                       </p>
                     </div>
@@ -293,14 +293,14 @@ const SelectionScreen = ({ onSelect, onClose }) => {
                   </div>
 
                   <div class="text-center mb-4 relative z-10">
-                    <p class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300 transition-all duration-500 group-hover:drop-shadow-[0_0_6px_rgba(34,211,238,0.8)]">
+                    <p class="text-xl font-bold text-transparent drop-shadow-[0_0_6px_rgba(34,211,238,0.8)]  bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300 transition-all duration-500 group-hover:drop-shadow-[0_0_6px_rgba(34,211,238,0.8)]">
                       {item.charAt(0).toUpperCase() + item.slice(1)}
                     </p>
                     {/* <p class="text-sm text-gray-400">October 24, 2024</p> */}
                   </div>
 
                   <div class="text-right">
-                    <p class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 transition-all duration-500 group-hover:bg-gradient-to-r group-hover:from-yellow-500 group-hover:to-orange-600 group-hover:text-5xl group-hover:drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]">
+                    <p class="text-4xl drop-shadow-[0_0_8px_rgba(250,204,21,0.7)]  font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 transition-all duration-500 group-hover:bg-gradient-to-r group-hover:from-yellow-500 group-hover:to-orange-600 group-hover:text-5xl group-hover:drop-shadow-[0_0_8px_rgba(250,204,21,1)]">
                       <motion.img
                         src={logoMap[item.toLowerCase()]}
                         alt={item}

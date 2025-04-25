@@ -97,17 +97,35 @@ export default function ScoreScreen({
                 ? "Not bad, but you can do better! 💪"
                 : "Keep practicing! You'll get there! 🌱"}
             </p>
-            <button
+            {/* <button
               onClick={() => setStep("questionsScreen")}
               className="m-4 bg-[#1DCD9F] border-1 border-black text-black md:text-xl px-6 py-2 rounded-full hover:scale-105 transition transform"
             >
               Check Answers
-            </button>
+            </button> */}
             <button
+              onClick={() => setStep("questionsScreen")}
+              class="group/button relative inline-flex items-center m-3 justify-center overflow-hidden rounded-3xl bg-[#1DCD9F] backdrop-blur-lg px-6 py-2  font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-700 border border-black"
+            >
+              <span class="md:text-2xl text-xl">Check your Answers</span>
+              <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+                <div class="relative h-full w-10 bg-white/20"></div>
+              </div>
+            </button>
+            {/* <button
               onClick={onRestart}
               className="m-4 bg-[#1DCD9F] border-1 border-black text-black md:text-xl px-6 py-2 rounded-full hover:scale-105 transition transform"
             >
               Play Again
+            </button> */}
+            <button
+              onClick={onRestart}
+              class="group/button relative inline-flex items-center justify-center m-3 overflow-hidden rounded-3xl bg-[#1DCD9F] backdrop-blur-lg px-6 py-2  font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-700 border border-black"
+            >
+              <span class="md:text-2xl text-xl">Play Again</span>
+              <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+                <div class="relative h-full w-10 bg-white/20"></div>
+              </div>
             </button>
           </div>
         </motion.div>
@@ -162,10 +180,19 @@ export default function ScoreScreen({
             </div>
             <button
               onClick={() => setStep("scoreScreen")}
+              class="group/button relative inline-flex items-center justify-center overflow-hidden rounded-3xl bg-[#1DCD9F] backdrop-blur-lg px-6 py-2 text-2xl font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-700 border border-black"
+            >
+              <span class="md:text-3xl text-2xl">Close</span>
+              <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
+                <div class="relative h-full w-10 bg-white/20"></div>
+              </div>
+            </button>
+            {/* <button
+              onClick={() => setStep("scoreScreen")}
               className="m-4 bg-[#1DCD9F] border-1 border-black text-black md:text-xl px-6 py-2 rounded-full hover:scale-105 transition transform"
             >
               Close
-            </button>
+            </button> */}
           </div>
         </div>
       )}

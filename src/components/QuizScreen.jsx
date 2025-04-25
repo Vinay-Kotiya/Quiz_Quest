@@ -140,7 +140,7 @@ export default function QuizScreen({
                 : "bg-red-300 text-gray-700 hover:scale-105"
             } `}
           >
-            <span class="text-xl">Previous</span>
+            <span class="md:text-3xl text-2xl">Previous</span>
             <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
               <div class="relative h-full w-10 bg-white/20"></div>
             </div>
@@ -159,9 +159,9 @@ export default function QuizScreen({
           </button> */}
           <button
             onClick={handleNext}
-            class="group/button relative inline-flex items-center justify-center overflow-hidden rounded-3xl bg-[#1DCD9F] backdrop-blur-lg px-6 py-2 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-700 border border-black"
+            class="group/button relative inline-flex items-center justify-center overflow-hidden rounded-3xl bg-[#1DCD9F] backdrop-blur-lg px-6 py-2 text-2xl font-semibold text-white transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:shadow-gray-700 border border-black"
           >
-            <span class="text-xl">Next</span>
+            <span class="md:text-3xl text-2xl">Next</span>
             <div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
               <div class="relative h-full w-10 bg-white/20"></div>
             </div>
