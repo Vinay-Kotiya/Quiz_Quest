@@ -32,8 +32,6 @@ const renderTime = (dimension, time) => {
 
 const getTimeSeconds = (time) => (minuteSeconds - time) | 0;
 const getTimeMinutes = (time) => ((time % hourSeconds) / minuteSeconds) | 0;
-// const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
-// const getTimeDays = (time) => (time / daySeconds) | 0;
 
 export default function App() {
   const [step, setStep] = useState("start");
@@ -67,13 +65,7 @@ export default function App() {
       setStep("score");
     }
   };
-  // const handlePrevious = (goBack) => {
-  //   if (currentQuestion - goBack >= 0) {
-  //     setCurrentQuestion(currentQuestion - goBack);
-  //   } else {
-  //     alert("This is the first question!");
-  //   }
-  // };
+
   const handlePrevious = (goBack) => {
     console.log("Go back by:", goBack);
     if (currentQuestion - goBack >= 0) {
@@ -162,9 +154,7 @@ export default function App() {
                         "minutes",
                         getTimeMinutes(hourSeconds - elapsedTime)
                       )}
-                      {hourSeconds - elapsedTime <= 0
-                        ? handleTimeISUp()
-                        : console.log(hourSeconds - elapsedTime)}
+                      {hourSeconds - elapsedTime <= 0 ? handleTimeISUp() : null}
                     </span>
                   )}
                 </CountdownCircleTimer>

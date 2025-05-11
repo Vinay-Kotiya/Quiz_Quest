@@ -33,32 +33,7 @@ export default function StartScreen({ onStart }) {
         setHasError(true);
       });
   }, []);
-  // var flag = true;
-  // const handleSoundClick = () => {
-  //   const audio = new Audio();
-  //   audio.src = bgMusic;
-  //   if (flag) {
-  //     alert("Sound is playing now!");
-  //     audio.loop = true; // Loop the audio
-  //     audio.volume = 0.5; // Set volume to 10%
-  //     audio.play().catch((error) => {
-  //       console.error("Error playing sound:", error);
-  //     });
-  //     flag = false;
-  //   } else {
-  //     // audio.onended = () => {
-  //     alert("Sound is stopped now!");
-  //     audio.currentTime = 0; // Reset the audio to the beginning
-  //     audio.src = ""; // Clear the source to stop it from playing
-  //     audio.loop = false; // Stop looping the audio
-  //     audio.volume = 0; // Set volume to 0%
-  //     audio.pause(); // Pause the audio
 
-  //     audio.load(); // Load the empty source
-
-  //     flag = true;
-  //   }
-  // };
   const handleSoundClick = () => {
     if (!audioRef.current) {
       audioRef.current = new Audio(bgMusic); // replace with your audio
@@ -83,17 +58,6 @@ export default function StartScreen({ onStart }) {
 
   return (
     <>
-      {/* <div className="absolute inset-0 z-0 h-screen w-full overflow-hidden bg-black">
-        <Squares
-          speed={0.5}
-          squareSize={40}
-          direction="up" // up, down, left, right, diagonal
-          borderColor="#05df72"
-          hoverFillColor="#fff"
-          // className="absolute inset-0 z-0 h-screen w-full"
-        />
-      </div> */}
-
       <div className="h-screen w-full flex absolute flex-col items-center justify-center bg-transparent text-white px-6">
         {/* Overlay Background */}
         {/* <div className="absolute inset-0 bg-black opacity-40 z-10"></div> */}
@@ -104,7 +68,7 @@ export default function StartScreen({ onStart }) {
           transition={{ delay: 0.5 }}
           className="w-full flex top-5 absolute justify-around items-center"
         >
-          <h1 className="text-xl md:text-5xl font-bold text-white">
+          <h1 className="text-xl  font-bold text-white">
             <TrueFocus
               sentence="Quiz Game"
               manualMode={false}
@@ -115,17 +79,6 @@ export default function StartScreen({ onStart }) {
               glowColor="rgba(0, 255, 0, 0.6)"
             />
           </h1>
-
-          {/* <span
-            className="transition animate-spinSlow hover:scale-110"
-            // className="transition animate-spin  duration-1000 hover:scale-110"
-            // style={{ animation: "spin 3s linear infinite" }}
-          >
-            <img
-              className="md:h-20 h-10 "
-              src="https://cdn-icons-png.freepik.com/512/240/240301.png"
-            />
-          </span> */}
 
           <motion.span
             // ref={audioRef}
@@ -149,54 +102,43 @@ export default function StartScreen({ onStart }) {
         </motion.div>
 
         {/* Content Container */}
-        <div className="relative z-20 flex flex-col md:flex-row items-center justify-between max-w-6xl w-full">
+        <div className="relative  z-20 flex mt-10 flex-col md:flex-row items-center justify-between max-w-6xl w-full">
           {/* Left Side Text */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             className="w-full md:w-1/2 text-center md:text-left space-y-6"
           >
-            {/* <h1 className="text-4xl md:text-5xl font-bold">
-              Welcome to the Quiz Game!
-            </h1> */}
             <BlurText
               text="Welcome to the Quiz Game!"
               delay={120}
               animateBy="words"
               direction="top"
               // onAnimationComplete={handleAnimationComplete}
-              className="text-4xl md:text-5xl font-bold"
+              className="text-4xl md:text-5xl font-bold  backdrop-blur rounded-2xl p-2 border-green-400 border"
             />
-            {/* <p className="text-lg md:text-xl">
-              Test your knowledge and learn something new every round.
-            </p> */}
+
             <BlurText
               text="Test your knowledge and learn something new every round."
               delay={100}
               animateBy="words"
               direction="top"
               // onAnimationComplete={handleAnimationComplete}
-              className="text-lg md:text-xl"
+              className="text-lg md:text-xl  backdrop-blur rounded-2xl p-2 border-green-400 border"
             />
-            {/* <p className="text-base md:text-lg text-gray-200">
-              Whether you're a trivia master or just here for fun, this
-              interactive quiz will challenge your brain across a variety of
-              topics. Choose your favorite category, select your difficulty
-              level, and race against the clock to answer each question.
-            </p> */}
-            <p className="text-base font-bold  md:text-lg text-gray-200">
+
+            <p className="text-base font-bold  backdrop-blur rounded-2xl p-2 border-green-400 border md:text-lg text-gray-200">
               <BlurText
-                text="💡 Learn interesting facts"
+                text="Learn interesting facts"
                 delay={100}
                 animateBy="words"
                 direction="top"
                 // onAnimationComplete={handleAnimationComplete}
-                className=""
               />
               <br />
 
               <BlurText
-                text="🧠 Sharpen your mind"
+                text="Sharpen your mind"
                 delay={100}
                 animateBy="words"
                 direction="right"
@@ -205,7 +147,7 @@ export default function StartScreen({ onStart }) {
               />
               <br />
               <BlurText
-                text="🏆 Track your score and aim for the top!"
+                text="Track your score and aim for the top!"
                 delay={100}
                 animateBy="words"
                 direction="left"
@@ -213,16 +155,14 @@ export default function StartScreen({ onStart }) {
                 // className="text-lg md:text-xl"
               />
             </p>
-            {/* <p className="text-base md:text-lg text-gray-200">
-              Ready to begin your journey of curiosity and discovery?
-            </p> */}
+
             <BlurText
               text="Ready to begin your journey of curiosity and discovery?"
               delay={100}
               animateBy="words"
               direction="left"
               // onAnimationComplete={handleAnimationComplete}
-              className="text-base md:text-lg text-gray-200"
+              className="text-base md:text-lg text-gray-200  backdrop-blur rounded-2xl p-2 border-green-400 border"
             />
             <Magnet padding={150} disabled={false} magnetStrength={7}>
               <motion.div
@@ -232,13 +172,13 @@ export default function StartScreen({ onStart }) {
                 transition={{ delay: 0.7 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                class="relative inline-flex items-center justify-center gap-4 group"
+                className="relative inline-flex items-center justify-center gap-4 group"
               >
                 <div class="absolute inset-0 duration-1000 opacity-60 transitiona-all bg-gradient-to-r from-indigo-500 via-pink-500 to-yellow-400 rounded-xl blur-lg filter group-hover:opacity-100 group-hover:duration-200"></div>
                 <a
                   onClick={handleSubmit}
                   role="button"
-                  class="group relative inline-flex items-center justify-center text-2xl rounded-xl bg-gray-900 px-8 py-3 font-semibold text-white transition-all duration-200 hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5 hover:shadow-gray-600/30"
+                  className="group relative inline-flex items-center justify-center text-2xl rounded-xl bg-gray-900 px-8 py-3 font-semibold text-white transition-all duration-200 hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5 hover:shadow-gray-600/30"
                 >
                   Start Quiz
                   <svg
@@ -247,32 +187,20 @@ export default function StartScreen({ onStart }) {
                     height="10"
                     width="10"
                     fill="none"
-                    class="mt-0.5 ml-2 -mr-1 stroke-white stroke-2"
+                    className="mt-0.5 ml-2 -mr-1 stroke-white stroke-2"
                   >
                     <path
                       d="M0 5h7"
-                      class="transition opacity-0 group-hover:opacity-100"
+                      className="transition opacity-0 group-hover:opacity-100"
                     ></path>
                     <path
                       d="M1 1l4 4-4 4"
-                      class="transition group-hover:translate-x-[3px]"
+                      className="transition group-hover:translate-x-[3px]"
                     ></path>
                   </svg>
                 </a>
               </motion.div>
             </Magnet>
-            {/* <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              duration={1}
-              transition={{ delay: 0.7 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={handleSubmit}
-              className="bg-white text-indigo-600 font-bold py-2 px-6 rounded-full shadow-lg hover:scale-105 transition transform"
-            >
-              Start Quiz
-            </motion.button> */}
           </motion.div>
 
           {/* Right Side 3D Lightbulb */}
